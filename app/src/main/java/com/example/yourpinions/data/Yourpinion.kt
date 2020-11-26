@@ -1,6 +1,6 @@
 package com.example.yourpinions.data
 
-data class yourpinion (
+data class Yourpinion (
     val opinion : String,
-    val vote_count : Int
+    val vote_count : Int = 0
 )
