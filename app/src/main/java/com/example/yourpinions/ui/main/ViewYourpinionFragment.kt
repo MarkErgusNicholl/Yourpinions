@@ -50,7 +50,7 @@ class ViewYourpinionFragment : Fragment() {
     private fun loadArguments() {
         arguments?.let {
             votes = it.getString("voteCount")!!
-            yourpinion = "\"" + it.getString("opinion")!! + "\""
+            yourpinion = it.getString("opinion")!!
 
         }
     }
