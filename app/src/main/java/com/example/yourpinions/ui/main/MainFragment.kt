@@ -29,7 +29,7 @@ class MainFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        dummyYourpinionList.add(Yourpinion("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis,", 255))
+        dummyYourpinionList.add(Yourpinion("Lorem ipsum dolor sit amet, consectetuer a a a a a adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis,", 255))
         dummyYourpinionList.add(Yourpinion("App"))
         dummyYourpinionList.add(Yourpinion("Is"))
         dummyYourpinionList.add(Yourpinion("Kinda"))
@@ -98,7 +98,7 @@ class MainFragment : Fragment() {
 
     private fun setupRecyclerView() {
         linearLayoutManager = LinearLayoutManager(activity)
-        adapter = YourpinionRecyclerViewAdapter(dummyYourpinionList)
+        adapter = YourpinionRecyclerViewAdapter(dummyYourpinionList, activity as (YourpinionClickListener))
         recyclerView.adapter = adapter
         recyclerView.layoutManager = linearLayoutManager
     }
