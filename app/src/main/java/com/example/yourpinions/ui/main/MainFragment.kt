@@ -2,16 +2,15 @@ package com.example.yourpinions.ui.main
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.yourpinions.MainActivity
 import com.example.yourpinions.R
 import com.example.yourpinions.data.Yourpinion
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainFragment : Fragment() {
 
@@ -23,6 +22,7 @@ class MainFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var adapter: YourpinionRecyclerViewAdapter
+    private lateinit var addYoupinion: FloatingActionButton
 
     // DUMMY DATA
     private val dummyYourpinionList = ArrayList<Yourpinion>()
@@ -85,16 +85,32 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.mainRecyclerView)
-        linearLayoutManager = LinearLayoutManager(activity)
-        adapter = YourpinionRecyclerViewAdapter(dummyYourpinionList)
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = linearLayoutManager
+        addYoupinion = view.findViewById(R.id.addYourpinion)
+        setupRecyclerView()
+        initAddYourpinionButtonListener()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         // TODO: Use the ViewModel
+    }
+
+    private fun setupRecyclerView() {
+        linearLayoutManager = LinearLayoutManager(activity)
+        adapter = YourpinionRecyclerViewAdapter(dummyYourpinionList)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = linearLayoutManager
+    }
+
+    private fun initAddYourpinionButtonListener() {
+        addYoupinion.setOnClickListener {
+            //TODO: Use show/hide to save compute resource??
+            activity!!.supportFragmentManager.beginTransaction()
+                .replace(R.id.container, YourpinionSubmissionFragment.newInstance())
+                .addToBackStack("")
+                .commit()
+        }
     }
 
 }
