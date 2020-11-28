@@ -71,9 +71,22 @@ class YourpinionSubmissionFragment : Fragment() {
     private fun listenToUserSubmission() {
         submitButton.setOnClickListener {
             val opinion = submissionField.text.toString()
-            viewModel.submitYourpinion(opinion)
-            Toast.makeText(activity,"Your Yourpinion is heard!", Toast.LENGTH_SHORT).show()
-            activity!!.onBackPressed()
+            if (opinion.length < 256) {
+                viewModel.submitYourpinion(opinion)
+                Toast.makeText(
+                    activity,
+                    "Your Yourpinion is heard!",
+                    Toast.LENGTH_LONG)
+                    .show()
+                activity!!.onBackPressed()
+            }
+            else {
+                Toast.makeText(
+                    activity,
+                    "Keep it below 255 characters, buddy. Try again!",
+                    Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
     }
 

@@ -5,7 +5,7 @@ import com.example.yourpinions.repository.YourpinionRepository
 
 class YourpinionSubmissionViewModel : ViewModel() {
 
-    val repository = YourpinionRepository()
+    private val repository = YourpinionRepository()
 
     fun submitYourpinion(opinion: String) {
         repository.addNewYourpinion(opinion)
