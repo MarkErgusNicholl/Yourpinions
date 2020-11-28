@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity(), YourpinionClickListener {
                     .replace(R.id.container, MainFragment.newInstance())
                     .commitNow()
         }
+
     }
 
     override fun onClick(yourpinionID: Int, opinion: String, voteCount: String) {

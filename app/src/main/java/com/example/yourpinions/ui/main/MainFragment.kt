@@ -25,60 +25,11 @@ class MainFragment : Fragment() {
     private lateinit var addYoupinion: FloatingActionButton
 
     // DUMMY DATA
-    private val dummyYourpinionList = ArrayList<Yourpinion>()
+    private var data = ArrayList<Yourpinion>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        dummyYourpinionList.add(Yourpinion("Lorem ipsum dolor sit amet, consectetuer a a a a a adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis,", 255))
-        dummyYourpinionList.add(Yourpinion("App"))
-        dummyYourpinionList.add(Yourpinion("Is"))
-        dummyYourpinionList.add(Yourpinion("Kinda"))
-        dummyYourpinionList.add(Yourpinion("Sus"))
-        dummyYourpinionList.add(Yourpinion("This"))
-        dummyYourpinionList.add(Yourpinion("App"))
-        dummyYourpinionList.add(Yourpinion("Is"))
-        dummyYourpinionList.add(Yourpinion("Kinda"))
-        dummyYourpinionList.add(Yourpinion("Sus"))
-        dummyYourpinionList.add(Yourpinion("This"))
-        dummyYourpinionList.add(Yourpinion("App"))
-        dummyYourpinionList.add(Yourpinion("Is"))
-        dummyYourpinionList.add(Yourpinion("Kinda"))
-        dummyYourpinionList.add(Yourpinion("Sus"))
-        dummyYourpinionList.add(Yourpinion("This"))
-        dummyYourpinionList.add(Yourpinion("App"))
-        dummyYourpinionList.add(Yourpinion("Is"))
-        dummyYourpinionList.add(Yourpinion("Kinda"))
-        dummyYourpinionList.add(Yourpinion("Sus"))
-        dummyYourpinionList.add(Yourpinion("This"))
-        dummyYourpinionList.add(Yourpinion("App"))
-        dummyYourpinionList.add(Yourpinion("Is"))
-        dummyYourpinionList.add(Yourpinion("Kinda"))
-        dummyYourpinionList.add(Yourpinion("Sus"))
-        dummyYourpinionList.add(Yourpinion("This"))
-        dummyYourpinionList.add(Yourpinion("App"))
-        dummyYourpinionList.add(Yourpinion("Is"))
-        dummyYourpinionList.add(Yourpinion("Kinda"))
-        dummyYourpinionList.add(Yourpinion("Sus"))
-        dummyYourpinionList.add(Yourpinion("This"))
-        dummyYourpinionList.add(Yourpinion("App"))
-        dummyYourpinionList.add(Yourpinion("Is"))
-        dummyYourpinionList.add(Yourpinion("Kinda"))
-        dummyYourpinionList.add(Yourpinion("Sus"))
-        dummyYourpinionList.add(Yourpinion("This"))
-        dummyYourpinionList.add(Yourpinion("App"))
-        dummyYourpinionList.add(Yourpinion("Is"))
-        dummyYourpinionList.add(Yourpinion("Kinda"))
-        dummyYourpinionList.add(Yourpinion("Sus"))
-        dummyYourpinionList.add(Yourpinion("This"))
-        dummyYourpinionList.add(Yourpinion("App"))
-        dummyYourpinionList.add(Yourpinion("Is"))
-        dummyYourpinionList.add(Yourpinion("Kinda"))
-        dummyYourpinionList.add(Yourpinion("Sus"))
-        dummyYourpinionList.add(Yourpinion("This"))
-        dummyYourpinionList.add(Yourpinion("App"))
-        dummyYourpinionList.add(Yourpinion("Is"))
-        dummyYourpinionList.add(Yourpinion("Kinda"))
-        dummyYourpinionList.add(Yourpinion("Sus"))
+
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
@@ -93,12 +44,14 @@ class MainFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        data = viewModel.loadData()
+        setupRecyclerView()
         // TODO: Use the ViewModel
     }
 
     private fun setupRecyclerView() {
         linearLayoutManager = LinearLayoutManager(activity)
-        adapter = YourpinionRecyclerViewAdapter(dummyYourpinionList, activity as (YourpinionClickListener))
+        adapter = YourpinionRecyclerViewAdapter(data, activity as (YourpinionClickListener))
         recyclerView.adapter = adapter
         recyclerView.layoutManager = linearLayoutManager
     }
