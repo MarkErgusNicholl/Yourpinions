@@ -2,6 +2,7 @@ package com.example.yourpinions
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.yourpinions.repository.YourpinionRepository
 import com.example.yourpinions.ui.main.MainFragment
 

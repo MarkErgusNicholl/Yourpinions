@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Yourpinions</string>
+    <string name="yourpinion_submission_prompt">Let everyone know what\'s on your mind...</string>
 </resources>
