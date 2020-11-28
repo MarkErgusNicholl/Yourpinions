@@ -31,14 +31,27 @@ class YourpinionRecyclerViewAdapter(private val yourpinionsList: ArrayList<Yourp
         }
 
         override fun onClick(v: View) {
-            clickListener.onClick(12345, yourpinion!!.opinion, yourpinion!!.vote_count.toString())
+            clickListener.onClick(12345,
+                formatOpinion(yourpinion!!.opinion),
+                formatVoteCount(yourpinion!!.vote_count))
             Log.d("RecyclerView", "CLICK!")
         }
 
         fun bindYourpinion(yourpinion: Yourpinion) {
             this.yourpinion = yourpinion
-            voteCount.text = yourpinion.vote_count.toString()
-            opinion.text = yourpinion.opinion
+            voteCount.text = formatVoteCount(yourpinion.vote_count)
+            opinion.text = formatOpinion(yourpinion.opinion)
+        }
+
+        private fun formatVoteCount(voteCount: Int): String {
+            if (voteCount > 0) {
+                return "+$voteCount"
+            }
+            else return voteCount.toString()
+        }
+
+        private fun formatOpinion(opinion: String): String {
+            return "\"" + opinion + "\""
         }
 
     }
