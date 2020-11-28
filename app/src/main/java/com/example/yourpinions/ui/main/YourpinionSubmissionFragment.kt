@@ -8,8 +8,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import com.example.yourpinions.R
 
 class YourpinionSubmissionFragment : Fragment() {
@@ -21,6 +23,7 @@ class YourpinionSubmissionFragment : Fragment() {
     private lateinit var viewModel: YourpinionSubmissionViewModel
     private lateinit var submissionField: EditText
     private lateinit var charCount: TextView
+    private lateinit var submitButton: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +36,9 @@ class YourpinionSubmissionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         submissionField = view.findViewById(R.id.yourpinionInputField)
         charCount = view.findViewById(R.id.charCount)
+        submitButton = view.findViewById(R.id.submitYourpinion)
         countCharactersOfInput()
+        listenToUserSubmission()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -61,6 +66,15 @@ class YourpinionSubmissionFragment : Fragment() {
             }
 
         })
+    }
+
+    private fun listenToUserSubmission() {
+        submitButton.setOnClickListener {
+            val opinion = submissionField.text.toString()
+            viewModel.submitYourpinion(opinion)
+            Toast.makeText(activity,"Your Yourpinion is heard!", Toast.LENGTH_SHORT).show()
+            activity!!.onBackPressed()
+        }
     }
 
 }
