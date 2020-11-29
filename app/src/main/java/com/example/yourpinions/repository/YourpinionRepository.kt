@@ -23,12 +23,15 @@ class YourpinionRepository {
         ref.push().setValue(yourpinion)
     }
 
-    fun upvote(uid: String) {
-        //TODO: FIX
+    //TODO: This should use transactions instead
+    fun upvote(uid: String, currentVoteCount: Int) {
+        val childUpdates = hashMapOf<String, Any>(
+            "vote_count" to currentVoteCount + 1
+        )
+        ref.child(uid).updateChildren(childUpdates)
     }
 
     fun downvote(uid: String) {
-        //TODO: FIX
     }
 
     fun retrieveTop20Yourpinions() : MutableLiveData<ArrayList<Yourpinion>> {
@@ -55,7 +58,6 @@ class YourpinionRepository {
 
             override fun onChildRemoved(p0: DataSnapshot) {
             }
-
         })
 
         return yourpinionList

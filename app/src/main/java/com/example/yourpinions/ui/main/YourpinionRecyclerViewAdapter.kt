@@ -31,10 +31,9 @@ class YourpinionRecyclerViewAdapter(private val yourpinionsList: ArrayList<Yourp
         }
 
         override fun onClick(v: View) {
-            clickListener.onClick(12345,
+            clickListener.onClick(yourpinion!!.uid!!,
                 formatOpinion(yourpinion!!.opinion),
                 formatVoteCount(yourpinion!!.vote_count))
-            Log.d("RecyclerView", "CLICK!")
         }
 
         fun bindYourpinion(yourpinion: Yourpinion) {

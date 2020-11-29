@@ -20,10 +20,10 @@ class MainActivity : AppCompatActivity(), YourpinionClickListener {
 
     }
 
-    override fun onClick(yourpinionID: Int, opinion: String, voteCount: String) {
+    override fun onClick(yourpinionID: String, opinion: String, voteCount: String) {
         val viewYourpinionFragment : Fragment = ViewYourpinionFragment.newInstance()
         val args = Bundle()
-        args.putInt("uid", yourpinionID)
+        args.putString("uid", yourpinionID)
         args.putString("opinion", opinion)
         args.putString("voteCount", voteCount)
         viewYourpinionFragment.arguments = args
