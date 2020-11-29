@@ -33,7 +33,8 @@ class YourpinionRepository {
 
     fun retrieveTop20Yourpinions() : MutableLiveData<ArrayList<Yourpinion>> {
         var listOfYourpinion = ArrayList<Yourpinion>()
-        ref.addChildEventListener(object : ChildEventListener {
+        // Sort the data by vote counts, and load first 20 only
+        ref.orderByChild("vote_count").addChildEventListener(object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {
             }
 
@@ -48,8 +49,7 @@ class YourpinionRepository {
                 var votes = data.child("vote_count").value as Long
                 var votesInt = votes.toInt()
                 var uid = data.key
-                listOfYourpinion.add(Yourpinion(opinion, votesInt, uid))
-                Log.d("REFRESHHHHHHHHH", "YAS")
+                listOfYourpinion.add(0, Yourpinion(opinion, votesInt, uid))
                 yourpinionList.value = listOfYourpinion
             }
 
@@ -58,7 +58,6 @@ class YourpinionRepository {
 
         })
 
-        Log.d("REFRESHHHHHHHHH", "SENT")
         return yourpinionList
     }
 

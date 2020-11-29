@@ -59,8 +59,8 @@ class MainFragment : Fragment() {
             Observer {
                 // Remove old data
                 data.removeAll(data)
-                // Add new data
-                data.addAll(it)
+                // Add new data, only take the first 20
+                data.addAll(it.take(20))
                 // Notify recycler view to refresh
                 recyclerView.adapter!!.notifyDataSetChanged()
             }
