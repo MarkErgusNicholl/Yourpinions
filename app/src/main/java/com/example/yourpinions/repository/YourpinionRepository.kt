@@ -3,8 +3,10 @@ package com.example.yourpinions.repository
 import android.os.Debug
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.yourpinions.data.Yourpinion
 import com.google.firebase.database.*
+import kotlinx.coroutines.flow.Flow
 
 // For this simple app, we will use a simple repository class instead of DI and data layer.
 class YourpinionRepository {
@@ -13,6 +15,7 @@ class YourpinionRepository {
     // instantiate LiveData in the viewModel
     private val db : FirebaseDatabase = FirebaseDatabase.getInstance()
     private val ref : DatabaseReference = db.getReference()
+    private val yourpinionList = MutableLiveData<ArrayList<Yourpinion>>()
 
     fun addNewYourpinion(opinion: String) {
         // Create a Yourpinion object and store in Firebase. Push() generates a UID.
@@ -28,7 +31,7 @@ class YourpinionRepository {
         //TODO: FIX
     }
 
-    fun retrieveTop20Yourpinions() : ArrayList<Yourpinion> {
+    fun retrieveTop20Yourpinions() : MutableLiveData<ArrayList<Yourpinion>> {
         var listOfYourpinion = ArrayList<Yourpinion>()
         ref.addChildEventListener(object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {
@@ -47,6 +50,7 @@ class YourpinionRepository {
                 var uid = data.key
                 listOfYourpinion.add(Yourpinion(opinion, votesInt, uid))
                 Log.d("REFRESHHHHHHHHH", "YAS")
+                yourpinionList.value = listOfYourpinion
             }
 
             override fun onChildRemoved(p0: DataSnapshot) {
@@ -55,7 +59,7 @@ class YourpinionRepository {
         })
 
         Log.d("REFRESHHHHHHHHH", "SENT")
-        return listOfYourpinion
+        return yourpinionList
     }
 
     // TODO: More Operations
