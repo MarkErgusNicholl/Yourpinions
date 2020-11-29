@@ -2,9 +2,13 @@ package com.example.yourpinions.repository
 
 import android.os.Debug
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.yourpinions.MainActivity
 import com.example.yourpinions.data.Yourpinion
+import com.example.yourpinions.ui.main.ViewYourpinionViewModel
+import com.example.yourpinions.ui.main.YourpinionSubmissionViewModel
 import com.google.firebase.database.*
 import kotlinx.coroutines.flow.Flow
 
@@ -16,6 +20,8 @@ class YourpinionRepository {
     private val db : FirebaseDatabase = FirebaseDatabase.getInstance()
     private val ref : DatabaseReference = db.getReference()
     private val yourpinionList = MutableLiveData<ArrayList<Yourpinion>>()
+
+    //TODO: Add failure cases to repository functions. States with LiveData(??)
 
     fun addNewYourpinion(opinion: String) {
         // Create a Yourpinion object and store in Firebase. Push() generates a UID.
@@ -31,7 +37,11 @@ class YourpinionRepository {
         ref.child(uid).updateChildren(childUpdates)
     }
 
-    fun downvote(uid: String) {
+    fun downvote(uid: String, currentVoteCount: Int) {
+        val childUpdates = hashMapOf<String, Any>(
+            "vote_count" to currentVoteCount - 1
+        )
+        ref.child(uid).updateChildren(childUpdates)
     }
 
     fun retrieveTop20Yourpinions() : MutableLiveData<ArrayList<Yourpinion>> {

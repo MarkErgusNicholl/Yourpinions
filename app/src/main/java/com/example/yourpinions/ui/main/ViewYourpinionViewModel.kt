@@ -9,4 +9,8 @@ class ViewYourpinionViewModel : ViewModel() {
     fun upvotePressed(uid: String, currentVoteCount: Int) {
         repo.upvote(uid, currentVoteCount)
     }
+
+    fun downvotePressed(uid: String, currentVoteCount: Int) {
+        repo.downvote(uid, currentVoteCount)
+    }
 }
