@@ -2,10 +2,12 @@ package com.example.yourpinions.ui.main
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.yourpinions.R
@@ -23,62 +25,12 @@ class MainFragment : Fragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var adapter: YourpinionRecyclerViewAdapter
     private lateinit var addYoupinion: FloatingActionButton
+    private var data = ArrayList<Yourpinion>()
 
     // DUMMY DATA
-    private val dummyYourpinionList = ArrayList<Yourpinion>()
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        dummyYourpinionList.add(Yourpinion("Lorem ipsum dolor sit amet, consectetuer a a a a a adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis,", 255))
-        dummyYourpinionList.add(Yourpinion("App"))
-        dummyYourpinionList.add(Yourpinion("Is"))
-        dummyYourpinionList.add(Yourpinion("Kinda"))
-        dummyYourpinionList.add(Yourpinion("Sus"))
-        dummyYourpinionList.add(Yourpinion("This"))
-        dummyYourpinionList.add(Yourpinion("App"))
-        dummyYourpinionList.add(Yourpinion("Is"))
-        dummyYourpinionList.add(Yourpinion("Kinda"))
-        dummyYourpinionList.add(Yourpinion("Sus"))
-        dummyYourpinionList.add(Yourpinion("This"))
-        dummyYourpinionList.add(Yourpinion("App"))
-        dummyYourpinionList.add(Yourpinion("Is"))
-        dummyYourpinionList.add(Yourpinion("Kinda"))
-        dummyYourpinionList.add(Yourpinion("Sus"))
-        dummyYourpinionList.add(Yourpinion("This"))
-        dummyYourpinionList.add(Yourpinion("App"))
-        dummyYourpinionList.add(Yourpinion("Is"))
-        dummyYourpinionList.add(Yourpinion("Kinda"))
-        dummyYourpinionList.add(Yourpinion("Sus"))
-        dummyYourpinionList.add(Yourpinion("This"))
-        dummyYourpinionList.add(Yourpinion("App"))
-        dummyYourpinionList.add(Yourpinion("Is"))
-        dummyYourpinionList.add(Yourpinion("Kinda"))
-        dummyYourpinionList.add(Yourpinion("Sus"))
-        dummyYourpinionList.add(Yourpinion("This"))
-        dummyYourpinionList.add(Yourpinion("App"))
-        dummyYourpinionList.add(Yourpinion("Is"))
-        dummyYourpinionList.add(Yourpinion("Kinda"))
-        dummyYourpinionList.add(Yourpinion("Sus"))
-        dummyYourpinionList.add(Yourpinion("This"))
-        dummyYourpinionList.add(Yourpinion("App"))
-        dummyYourpinionList.add(Yourpinion("Is"))
-        dummyYourpinionList.add(Yourpinion("Kinda"))
-        dummyYourpinionList.add(Yourpinion("Sus"))
-        dummyYourpinionList.add(Yourpinion("This"))
-        dummyYourpinionList.add(Yourpinion("App"))
-        dummyYourpinionList.add(Yourpinion("Is"))
-        dummyYourpinionList.add(Yourpinion("Kinda"))
-        dummyYourpinionList.add(Yourpinion("Sus"))
-        dummyYourpinionList.add(Yourpinion("This"))
-        dummyYourpinionList.add(Yourpinion("App"))
-        dummyYourpinionList.add(Yourpinion("Is"))
-        dummyYourpinionList.add(Yourpinion("Kinda"))
-        dummyYourpinionList.add(Yourpinion("Sus"))
-        dummyYourpinionList.add(Yourpinion("This"))
-        dummyYourpinionList.add(Yourpinion("App"))
-        dummyYourpinionList.add(Yourpinion("Is"))
-        dummyYourpinionList.add(Yourpinion("Kinda"))
-        dummyYourpinionList.add(Yourpinion("Sus"))
+
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
@@ -86,21 +38,33 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.mainRecyclerView)
         addYoupinion = view.findViewById(R.id.addYourpinion)
-        setupRecyclerView()
         initAddYourpinionButtonListener()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        setupRecyclerView()
         // TODO: Use the ViewModel
     }
 
     private fun setupRecyclerView() {
         linearLayoutManager = LinearLayoutManager(activity)
-        adapter = YourpinionRecyclerViewAdapter(dummyYourpinionList, activity as (YourpinionClickListener))
+        adapter = YourpinionRecyclerViewAdapter(data, activity as (YourpinionClickListener))
         recyclerView.adapter = adapter
         recyclerView.layoutManager = linearLayoutManager
+        // Observe LiveData on viewmodel retrieved from repo
+        viewModel.loadData().observe(
+            this,
+            Observer {
+                // Remove old data
+                data.removeAll(data)
+                // Add new data, only take the first 20
+                data.addAll(it.take(20))
+                // Notify recycler view to refresh
+                recyclerView.adapter!!.notifyDataSetChanged()
+            }
+        )
     }
 
     private fun initAddYourpinionButtonListener() {
