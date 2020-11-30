@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "823210383083",
+    "firebase_url": "https://yourpinions.firebaseio.com",
+    "project_id": "yourpinions",
+    "storage_bucket": "yourpinions.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:823210383083:android:b7705ad6313eab32ed90ae",
+        "android_client_info": {
+          "package_name": "com.example.yourpinions"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "823210383083-p1p5pl6stsk3s6o98u7ef2jovbs8htcu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYAN-N3mCLIrKIIVLn1ksr3nB8osooSkI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "823210383083-p1p5pl6stsk3s6o98u7ef2jovbs8htcu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
