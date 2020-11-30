@@ -82,6 +82,7 @@ class ViewYourpinionFragment : Fragment() {
         }
     }
 
+    // Format the vote count data accordingly and produce a string.
     private fun createNewUpvoteVal(oldVoteCount: Int) : String {
         return when {
             oldVoteCount == -1 -> {

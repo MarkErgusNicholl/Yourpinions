@@ -47,6 +47,7 @@ class YourpinionSubmissionFragment : Fragment() {
         // TODO: Use the ViewModel
     }
 
+    // Count the chars in the field to provide user feedback.
     private fun countCharactersOfInput() {
         submissionField.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
@@ -60,6 +61,7 @@ class YourpinionSubmissionFragment : Fragment() {
                     charCount.text = it.length.toString()
                     charCount.setTextColor(resources.getColor(R.color.white))
                     if (it.length > 255) {
+                        // Text becomes red to notify user that their opinion is too long.
                         charCount.setTextColor(resources.getColor(R.color.red))
                     }
                 }
@@ -68,6 +70,7 @@ class YourpinionSubmissionFragment : Fragment() {
         })
     }
 
+    // Submit the opinion to the database to store. We init a Yourpinion with zero votes.
     private fun listenToUserSubmission() {
         submitButton.setOnClickListener {
             val opinion = submissionField.text.toString()
