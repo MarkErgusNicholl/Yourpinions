@@ -13,6 +13,7 @@ import com.example.yourpinions.R
 import com.example.yourpinions.data.Yourpinion
 import com.example.yourpinions.inflate
 
+// This class binds data to the recycler view to allow Yourpinions to be displayed.
 class YourpinionRecyclerViewAdapter(private val yourpinionsList: ArrayList<Yourpinion>, private val clickListener: YourpinionClickListener)
     : RecyclerView.Adapter<YourpinionRecyclerViewAdapter.YourpinionHolder>() {
 
@@ -31,6 +32,7 @@ class YourpinionRecyclerViewAdapter(private val yourpinionsList: ArrayList<Yourp
         }
 
         override fun onClick(v: View) {
+            //Open a new fragment and fill the content
             clickListener.onClick(yourpinion!!.uid!!,
                 formatOpinion(yourpinion!!.opinion),
                 formatVoteCount(yourpinion!!.vote_count))
@@ -69,7 +71,6 @@ class YourpinionRecyclerViewAdapter(private val yourpinionsList: ArrayList<Yourp
 
     override fun onBindViewHolder(holder: YourpinionHolder, position: Int) {
         val itemYourpinion = yourpinionsList[position]
-        Log.d("RecyclerView", "onBindViewHolder")
         holder.bindYourpinion(itemYourpinion)
     }
 }
