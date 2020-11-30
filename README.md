@@ -4,7 +4,7 @@ A simple Android app designed to let users express their opinions while other us
 ![](H1NRb3tq0F3eIkRc6f.gif)
 
 ## Features
-* Displays top 20 Yourpinions on the main page.
+* Displays top 20 Yourpinions on the main page, according to their vote count.
 * Add a Yourpinion that is up to 255 characters long.
 * Upvote and downvote Yourpinions.
 
